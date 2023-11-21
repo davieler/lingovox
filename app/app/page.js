@@ -6,7 +6,7 @@ import './page.css';
 function Page() {
     const [language, set_language] = useState('es'); // output language
     const [audio_file, set_audio_file] = useState(null); // audio file
-    const [text, set_text] = useState('speech to text'); // text of the audio file (speech to text)
+    const [text, set_text] = useState(''); // text of the audio file (speech to text)
     const [audio_file_uploaded, set_audio_file_uploaded] = useState(false); // audio file uploaded
 
     const handle_language_change = (event) => {
@@ -21,30 +21,35 @@ function Page() {
 
     const handle_submit_upload = async (event) => {
         event.preventDefault();
-        set_audio_file_uploaded(true); // set the audio_file_uploaded to true
+        if (audio_file) { // if the audio file is selected
+            set_audio_file_uploaded(true); // set the audio_file_uploaded to true
+            set_text('Uploading...');
 
-        const formData = new FormData();
-        formData.append('audio_file', audio_file);
+            const formData = new FormData();
+            formData.append('audio_file', audio_file);
 
-        try {
-            const response = await fetch('http://localhost:8000/upload/', {
-                method: 'POST',
-                body: formData,
-            });
-            if (!response.ok) {
-                throw new Error('Error to send audio file');
+            try {
+                const response = await fetch('http://localhost:8000/upload/', {
+                    method: 'POST',
+                    body: formData,
+                });
+                if (!response.ok) {
+                    throw new Error('Error to send audio file');
+                }
+                // Update the text of the audio file (speech to text)
+                const data = await response.json();
+                const segments_to_text = data.transcription.map((segment) => `"${segment.text}" -> [start:${segment.start}, end:${segment.end}]`).join('\n');
+                set_text(segments_to_text);
+            } catch (error) {
+                console.error('Error:', error);
             }
-            // Update the text of the audio file (speech to text)
-            const data = await response.json();
-            set_text(data.text_to_translate); // set the text of the audio file (speech to text)
-        } catch (error) {
-            console.error('Error:', error);
+        } else {
+            alert('You need to select an audio file first');
         }
     }
 
     const handle_submit_translate = async (event) => {
         event.preventDefault();
-
         if (audio_file_uploaded) { // if the audio file is uploaded
             const form = new FormData();
             form.append('language', language);
@@ -90,7 +95,7 @@ function Page() {
                         <button type="submit">Upload</button>
                     </div>
                     <textarea name="text"
-                        placeholder={text} readOnly>
+                        value={text} readOnly>
                     </textarea>
                 </form>
                 <form className="translate-class" onSubmit={handle_submit_translate}>
