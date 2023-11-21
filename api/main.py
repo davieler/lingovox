@@ -61,42 +61,4 @@ async def translate_audio(audio_file: UploadFile = File(...), language: str = Fo
         return FileResponse(file_path, media_type="audio/wav") # Return file (test)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
-
-
-
-
-
-"""@app.post("/translate/")
-async def translate_audio(audio_file: UploadFile = File(...), language: str = Form(...)):
-    try:
-        contents = await audio_file.read()
-
-        # Save file in server with other name
-        file_path = f"output_{audio_file.filename}"
-
-        with open(file_path, "wb") as buffer:
-            buffer.write(contents)
-        return FileResponse(file_path, media_type="audio/wav") # Return file (test)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-        
-        result["segments"] = [
-            {
-                "start": 0.0,
-                "end": 0.5,
-                "text": "Hola, mi nombre es Fernando"
-            },
-            {
-                "start": 0.5,
-                "end": 1.0,
-                "text": "¿Cómo estás?"
-            }
-            ...
-        ]
-        
-        """
-
-
-
+####################################################################################################
