@@ -29,8 +29,8 @@ model = whisperx.load_model("large-v2", device, compute_type=compute_type) # Loa
 async def audio_transcription(file_path: str):
     try:
         audio = whisperx.load_audio(file_path)
-        result = model.transcribe(audio, batch_size=batch_size)
-        return result["segments"] # Return transcription segmented by time
+        transcription = model.transcribe(audio, batch_size=batch_size)
+        return transcription["segments"] # Return transcription segmented by time
     except Exception as e:
         print(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -40,9 +40,9 @@ async def upload_audio(audio_file: UploadFile = File(...)):
     try:
         with open(DATAPATH + audio_file.filename, "wb") as buffer:
             shutil.copyfileobj(audio_file.file, buffer) # Save file
-        segments = await audio_transcription(DATAPATH + audio_file.filename) # Process audio
+        transcription = await audio_transcription(DATAPATH + audio_file.filename) # Process audio
 
-        return {"transcription": segments} # Return transcription segmented by time
+        return {"transcription": transcription} # Return transcription segmented by time
     except Exception as e:
         print(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
