@@ -4,29 +4,26 @@
   padding: 0;
   align-items: center;
   justify-content: center;
-  font-family: "Brush Script MT", cursive;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body{
-  background-color: #f8f8f8;
+  background-color: #20212A;
 }
-
-/*******************************/
 
 header {
   text-align: center;
   padding: 40px 0;
   margin: 20px 20%;
-  background-color: #c1c9cb;
-  border: 3px solid #171113;
+  background-color: #70A7B6;
 }
 
 header h1 {
-  font-size: 10em;
-  color: #171113;
+    font-family: "Comfortaa", sans-serif;
+    text-transform: uppercase;
+    font-size: 6vw; 
+    color: #171113;
 }
-
-/*******************************/
 
 main {
   display: flex;
@@ -41,8 +38,6 @@ form {
   margin: 100px;
 }
 
-/*******************************/
-
 form div {
   display: flex;
   flex-direction: row;
@@ -55,14 +50,11 @@ input[type="file"] {
   padding: 10px;
   margin: 10px;
   color: #171113;
-  background-color: #c1c9cb;
-  border: 2px solid #171113;
+  background-color: #EDE6E2;
 }
 
 input[type="file"]::-webkit-file-upload-button {
-  font-family: "Brush Script MT", cursive;
-  border: 2px solid #171113;
-  background: #598376;
+  background: #70A7B6;
   color: #f8f8f8;
   padding: 15px 15px;
   margin: 10px;
@@ -78,8 +70,7 @@ button {
   margin: 10px;
   font-size: 18px;
   color: #f8f8f8;
-  background: #598376;
-  border: 2px solid #171113;
+  background: #70A7B6;
 }
 
 button:hover {
@@ -87,25 +78,20 @@ button:hover {
   color: #f8f8f8;
 }
 
-/*******************************/
-
 textarea {
   font-size: 15px;
   padding: 10px;
   white-space: pre-wrap;
-  border: 2px solid #171113;
+  background-color: #EDE6E2;
   width: 100%;
   height: 500px;
   resize: none;
 }
-
-/*******************************/
 
 select {
   display: block;
   font-size: 18px;
   padding: 20px;
   margin: 10px;
-  background-color: #c1c9cb;
-  border: 2px solid #171113;
-}
+  background-color: #EDE6E2;
+}      
